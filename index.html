@@ -394,7 +394,16 @@ window.addEventListener('scroll',()=>{scrollY=window.scrollY;});
 (function(){if(localStorage.getItem('cookieConsent')){document.getElementById('cookie-banner').style.display='none';if(localStorage.getItem('cookieConsent')==='accepted')loadGA();}})();
 function acceptCookies(){localStorage.setItem('cookieConsent','accepted');document.getElementById('cookie-banner').style.display='none';loadGA();}
 function declineCookies(){localStorage.setItem('cookieConsent','declined');document.getElementById('cookie-banner').style.display='none';}
-function loadGA(){/* GA hier eintragen wenn ID vorhanden: G-XXXXXXXXXX */}
+function loadGA(){
+  const s=document.createElement('script');
+  s.src='https://www.googletagmanager.com/gtag/js?id=G-83H874J8W4';
+  s.async=true;
+  document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','G-83H874J8W4',{'anonymize_ip':true});
+}
 
 function closeDrawer(){document.getElementById('hamburger').classList.remove('open');document.getElementById('navDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('hamburger').addEventListener('click',()=>{const isOpen=document.getElementById('navDrawer').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open');document.getElementById('drawerOverlay').classList.toggle('open');document.body.style.overflow=isOpen?'hidden':'';});
