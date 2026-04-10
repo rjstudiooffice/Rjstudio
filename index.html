@@ -30,14 +30,14 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--white);font-family:'Josefin Sans',sans-serif;font-weight:300;overflow-x:hidden;}
 #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
 /* COOKIE */
-#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#111;border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
-#cookie-banner p{font-size:13px;color:var(--white60);line-height:1.7;max-width:700px;}
-#cookie-banner a{color:var(--gold);text-decoration:underline;}
-.cookie-btns{display:flex;gap:10px;flex-shrink:0;}
-.cookie-accept{background:var(--gold);color:var(--bg);border:none;padding:10px 24px;font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
-.cookie-accept:hover{background:var(--gold2);}
-.cookie-decline{background:transparent;color:var(--white60);border:1px solid rgba(255,255,255,.2);padding:10px 24px;font-family:'Josefin Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-.cookie-decline:hover{border-color:var(--white60);color:var(--white);}
+
+
+
+
+
+
+
+
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 60px;height:100px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .nav-logo img{height:120px!important;width:auto!important;max-height:120px!important;object-fit:contain!important;display:block!important;}
@@ -172,7 +172,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .about-grid{grid-template-columns:1fr;gap:40px;}.about-visual{aspect-ratio:3/2;max-height:320px;}
   .leistungen-grid{grid-template-columns:1fr 1fr;}.form-row{grid-template-columns:1fr;}
   footer{padding:32px 24px;flex-direction:column;align-items:flex-start;}
-  #cookie-banner{padding:16px 24px;}
+
 }
 @media(max-width:600px){
   nav{padding:0 20px;height:72px;}.nav-logo img{height:72px!important;max-height:72px!important;}
@@ -188,22 +188,16 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .kontakt-inner{padding:0 20px;}.kontakt-actions{flex-direction:column;}
   .kontakt-actions .btn-primary,.kontakt-actions .btn-secondary{width:100%;text-align:center;padding:16px 24px;}
   footer{padding:28px 20px;gap:16px;}
-  #cookie-banner{flex-direction:column;align-items:flex-start;}
+
 }
 @media(max-width:400px){.hero-title{font-size:clamp(38px,11vw,56px);}.sec-title{font-size:clamp(36px,10vw,52px);}.about-stats{grid-template-columns:1fr;}}
 </style>
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="39c82957-be7f-4630-9631-97752c367f8a" data-blockingmode="auto" type="text/javascript"></script>
 </head>
 <body>
 <canvas id="stars"></canvas>
 
-<!-- COOKIE BANNER -->
-<div id="cookie-banner">
-  <p>Diese Website verwendet Cookies um die Nutzererfahrung zu verbessern und den Traffic zu analysieren (Google Analytics). Mehr Infos in unserer <a href="datenschutz.html">Datenschutzerklärung</a>.</p>
-  <div class="cookie-btns">
-    <button class="cookie-decline" onclick="declineCookies()">Ablehnen</button>
-    <button class="cookie-accept" onclick="acceptCookies()">Akzeptieren</button>
-  </div>
-</div>
+
 
 <!-- NAV -->
 <nav>
@@ -391,19 +385,12 @@ let scrollY=0,t=0;
 window.addEventListener('scroll',()=>{scrollY=window.scrollY;});
 (function draw(){ctx.clearRect(0,0,W,H);t+=0.016;stars.forEach(s=>{const op=(Math.sin(t*s.speed*60+s.phase)+1)/2*s.max;const py=((s.y-scrollY*s.parallax)%H+H)%H;ctx.beginPath();ctx.arc(s.x,py,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${op})`;ctx.fill();if(op>0.45){ctx.beginPath();ctx.arc(s.x,py,s.r*3,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${op*0.12})`;ctx.fill();}});requestAnimationFrame(draw);})();
 
-(function(){if(localStorage.getItem('cookieConsent')){document.getElementById('cookie-banner').style.display='none';if(localStorage.getItem('cookieConsent')==='accepted')loadGA();}})();
-function acceptCookies(){localStorage.setItem('cookieConsent','accepted');document.getElementById('cookie-banner').style.display='none';loadGA();}
-function declineCookies(){localStorage.setItem('cookieConsent','declined');document.getElementById('cookie-banner').style.display='none';}
-function loadGA(){
-  const s=document.createElement('script');
-  s.src='https://www.googletagmanager.com/gtag/js?id=G-83H874J8W4';
-  s.async=true;
-  document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js',new Date());
-  gtag('config','G-83H874J8W4',{'anonymize_ip':true});
-}
+/* Cookie-Verwaltung übernimmt Cookiebot */
+/* Google Analytics - Cookiebot übernimmt die Consent-Verwaltung */
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-83H874J8W4',{'anonymize_ip':true});
 
 function closeDrawer(){document.getElementById('hamburger').classList.remove('open');document.getElementById('navDrawer').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open');document.body.style.overflow='';}
 document.getElementById('hamburger').addEventListener('click',()=>{const isOpen=document.getElementById('navDrawer').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open');document.getElementById('drawerOverlay').classList.toggle('open');document.body.style.overflow=isOpen?'hidden':'';});
