@@ -353,15 +353,16 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
         <div class="form-success" id="formSuccess">
           <p>Danke für deine Nachricht – ich melde mich innerhalb von 24 Stunden! ✦</p>
         </div>
-        <form id="kontaktForm" action="https://formspree.io/f/xpqoggow" method="POST">
+        <form id="kontaktForm" name="kontakt" method="POST" netlify data-netlify="true">
+          <input type="hidden" name="form-name" value="kontakt">
           <div class="form-row">
             <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Dein Name" required aria-label="Dein Name"></div>
             <div class="form-group"><label for="kontakt">E-Mail oder Telefon</label><input type="text" id="kontakt" name="kontakt" placeholder="deine@email.at oder +43 …" required aria-label="Deine E-Mail Adresse oder Telefonnummer"></div>
           </div>
           <div class="form-group"><label for="betreff">Betreff</label><input type="text" id="betreff" name="betreff" placeholder="Worum geht es?" aria-label="Betreff deiner Anfrage"></div>
           <div class="form-group"><label for="nachricht">Nachricht</label><textarea id="nachricht" name="nachricht" placeholder="Erzähl mir von deinem Projekt..." required aria-label="Deine Nachricht"></textarea></div>
-          <input type="text" name="_gotcha" style="display:none">
-          <input type="hidden" name="_subject" value="Neue Anfrage über rjstudio.at">
+          <input type="hidden" name="form-name" value="kontakt">
+          <p style="display:none"><input name="bot-field"></p>
           <div class="form-submit"><button type="submit" id="submitBtn">Nachricht senden →</button></div>
           <p class="form-note">Ich melde mich innerhalb von 24 Stunden bei dir.</p>
         </form>
@@ -399,7 +400,28 @@ function closeDrawer(){document.getElementById('hamburger').classList.remove('op
 document.getElementById('hamburger').addEventListener('click',()=>{const isOpen=document.getElementById('navDrawer').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open');document.getElementById('drawerOverlay').classList.toggle('open');document.body.style.overflow=isOpen?'hidden':'';});
 document.getElementById('drawerOverlay').addEventListener('click',closeDrawer);
 
-document.getElementById("kontaktForm").addEventListener("submit",async function(e){e.preventDefault();const btn=document.getElementById("submitBtn");btn.disabled=true;btn.textContent="Wird gesendet 2026";try{const res=await fetch("https://formspree.io/f/xpqoggow",{method:"POST",body:new FormData(this),headers:{"Accept":"application/json"}});if(res.ok){document.getElementById("kontaktForm").style.display="none";document.getElementById("formSuccess").style.display="block";}else{btn.disabled=false;btn.textContent="Nachricht senden 2192";alert("Fehler 2013 bitte schreib direkt an office@rjstudio.at");}}catch(err){btn.disabled=false;btn.textContent="Nachricht senden 2192";alert("Fehler 2013 bitte schreib direkt an office@rjstudio.at");}});
+document.getElementById("kontaktForm").addEventListener("submit",async function(e){
+  e.preventDefault();
+  const btn=document.getElementById("submitBtn");
+  btn.disabled=true;
+  btn.textContent="Wird gesendet …";
+  const data=new FormData(this);
+  try{
+    const res=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(data).toString()});
+    if(res.ok){
+      document.getElementById("kontaktForm").style.display="none";
+      document.getElementById("formSuccess").style.display="block";
+    }else{
+      btn.disabled=false;
+      btn.textContent="Nachricht senden →";
+      alert("Fehler – bitte schreib direkt an office@rjstudio.at");
+    }
+  }catch(err){
+    btn.disabled=false;
+    btn.textContent="Nachricht senden →";
+    alert("Fehler – bitte schreib direkt an office@rjstudio.at");
+  }
+});
 
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
 document.querySelectorAll('.reveal,.reveal-left').forEach((el,i)=>{el.style.transitionDelay=(i%4)*0.08+'s';obs.observe(el);});
