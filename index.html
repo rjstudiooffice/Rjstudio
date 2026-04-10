@@ -75,14 +75,7 @@ section{position:relative;z-index:1;}
 /* ABOUT */
 .about{padding:130px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:center;}
-.about-visual{
-  width:100%;aspect-ratio:3/4;
-  background:var(--gold-faint);
-  border:1px solid var(--border);
-  position:relative;
-  overflow:hidden;
-}
-/* Rahmen-Inset */
+.about-visual{width:100%;aspect-ratio:3/4;background:var(--gold-faint);border:1px solid var(--border);position:relative;overflow:hidden;}
 .about-visual::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:1px solid var(--border);z-index:2;pointer-events:none;}
 .about-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:1;}
 .about-visual-label{position:absolute;bottom:28px;left:28px;font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--white);opacity:.7;z-index:3;text-shadow:0 1px 8px rgba(0,0,0,.8);}
@@ -108,21 +101,6 @@ section{position:relative;z-index:1;}
 .unterschied-title em{color:var(--gold);font-style:italic;}
 .unterschied-text{font-size:16px;font-weight:300;color:var(--white60);line-height:1.9;}
 
-/* PORTFOLIO */
-.portfolio{padding:130px 0;border-bottom:1px solid var(--border);}
-.portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;}
-.portfolio-item{position:relative;aspect-ratio:4/3;background:var(--gold-faint);border:1px solid var(--border);overflow:hidden;}
-.portfolio-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
-.placeholder-icon{font-size:28px;color:rgba(201,168,76,.2);line-height:1;}
-.placeholder-text{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,76,.25);}
-.portfolio-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,8,8,.95) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;transform:translateY(12px);opacity:0;transition:opacity .3s,transform .4s;}
-.portfolio-item:hover .portfolio-overlay{opacity:1;transform:translateY(0);}
-.portfolio-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.portfolio-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:4px;}
-.portfolio-desc{font-size:14px;color:var(--white60);}
-.portfolio-link{position:absolute;top:20px;right:20px;width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--gold);text-decoration:none;font-size:16px;opacity:0;transition:opacity .3s,background .3s;}
-.portfolio-item:hover .portfolio-link{opacity:1;}
-
 /* LEISTUNGEN */
 .leistungen{padding:130px 0;border-bottom:1px solid var(--border);}
 .leistungen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;}
@@ -131,15 +109,6 @@ section{position:relative;z-index:1;}
 .leistung-icon{font-size:28px;margin-bottom:20px;display:block;}
 .leistung-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--white);margin-bottom:12px;}
 .leistung-text{font-size:15px;color:var(--white60);line-height:1.9;}
-
-/* TESTIMONIALS */
-.testimonials{padding:130px 0;border-bottom:1px solid var(--border);}
-.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;}
-.testimonial{padding:44px 36px;border:1px solid var(--border);background:var(--gold-faint);position:relative;}
-.testimonial-quote{font-family:'Cormorant Garamond',serif;font-size:72px;color:var(--gold);opacity:.15;line-height:1;position:absolute;top:12px;left:24px;}
-.testimonial-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;font-weight:300;color:var(--white80);line-height:1.9;margin-bottom:24px;padding-top:24px;}
-.testimonial-author{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
-.testimonial-role{font-size:13px;letter-spacing:2px;color:var(--white60);margin-top:4px;}
 
 /* KONTAKT */
 .kontakt{padding:130px 0;}
@@ -179,7 +148,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
 .reveal-left.visible{opacity:1;transform:translateX(0);}
 .reveal-right{opacity:0;transform:translateX(30px);transition:opacity .8s ease,transform .8s ease;}
 .reveal-right.visible{opacity:1;transform:translateX(0);}
-.h1{opacity:0;animation:fadeUp .8s ease .3s forwards;}
 .h2{opacity:0;animation:fadeUp .8s ease .5s forwards;}
 .h3{opacity:0;animation:fadeUp .8s ease .7s forwards;}
 .h4{opacity:0;animation:fadeUp .8s ease .9s forwards;}
@@ -188,9 +156,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
 /* RESPONSIVE */
 @media(max-width:1100px){
   .unterschied-grid{grid-template-columns:1fr;}
-  .portfolio-grid{grid-template-columns:1fr 1fr;}
   .leistungen-grid{grid-template-columns:1fr 1fr;}
-  .testimonials-grid{grid-template-columns:1fr;}
 }
 @media(max-width:900px){
   nav{padding:0 24px;height:80px;}
@@ -201,9 +167,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .hero{padding:100px 24px 60px;}
   .about-grid{grid-template-columns:1fr;gap:40px;}
   .about-visual{aspect-ratio:3/2;max-height:320px;}
-  .portfolio-grid{grid-template-columns:1fr 1fr;}
   .leistungen-grid{grid-template-columns:1fr 1fr;}
-  .testimonials-grid{grid-template-columns:1fr;}
   .form-row{grid-template-columns:1fr;}
   footer{padding:32px 24px;flex-direction:column;align-items:flex-start;}
 }
@@ -215,7 +179,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .hero-sub{font-size:12px;letter-spacing:3px;gap:10px;margin-bottom:36px;}
   .hero-actions{flex-direction:column;gap:12px;}
   .hero-actions .btn-primary,.hero-actions .btn-secondary{width:100%;text-align:center;padding:16px 24px;}
-  .about,.unterschied,.portfolio,.leistungen,.testimonials,.kontakt{padding:72px 0;}
+  .about,.unterschied,.leistungen,.kontakt{padding:72px 0;}
   .wrap{padding:0 20px;}
   .sec-lead{font-size:16px;margin-bottom:32px;}
   .about-visual{aspect-ratio:3/4;max-height:420px;}
@@ -223,13 +187,8 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .about-stat-num{font-size:32px;}
   .unterschied-grid{grid-template-columns:1fr;}
   .unterschied-card{padding:36px 28px;}
-  .portfolio-grid{grid-template-columns:1fr;}
-  .portfolio-item{aspect-ratio:16/9;}
-  .portfolio-overlay{opacity:1;transform:none;}
   .leistungen-grid{grid-template-columns:1fr;}
   .leistung{padding:32px 24px;}
-  .testimonials-grid{grid-template-columns:1fr;}
-  .testimonial{padding:36px 28px;}
   .kontakt-inner{padding:0 20px;}
   .kontakt-actions{flex-direction:column;}
   .kontakt-actions .btn-primary,.kontakt-actions .btn-secondary{width:100%;text-align:center;padding:16px 24px;}
@@ -253,7 +212,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   <ul class="nav-links">
     <li><a href="#about">Über mich</a></li>
     <li><a href="#unterschied">Der RJ Unterschied</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#leistungen">Leistungen</a></li>
     <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
   </ul>
@@ -266,11 +224,9 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <div class="nav-drawer" id="navDrawer">
   <div class="drawer-links">
-    <a href="#about"        onclick="closeDrawer()">Über mich</a>
-    <a href="#unterschied"  onclick="closeDrawer()">Der RJ Unterschied</a>
-    <a href="#portfolio"    onclick="closeDrawer()">Portfolio</a>
-    <a href="#leistungen"   onclick="closeDrawer()">Leistungen</a>
-    <a href="#testimonials" onclick="closeDrawer()">Stimmen</a>
+    <a href="#about"       onclick="closeDrawer()">Über mich</a>
+    <a href="#unterschied" onclick="closeDrawer()">Der RJ Unterschied</a>
+    <a href="#leistungen"  onclick="closeDrawer()">Leistungen</a>
   </div>
   <a href="#kontakt" class="drawer-cta" onclick="closeDrawer();setTimeout(()=>document.getElementById('kontakt').scrollIntoView({behavior:'smooth'}),380);">Kontakt aufnehmen</a>
 </div>
@@ -294,7 +250,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
     </div>
     <div class="hero-actions h4">
       <a href="#kontakt" class="btn-primary">Jetzt Kontakt aufnehmen →</a>
-      <a href="#portfolio" class="btn-secondary">Meine Arbeit ansehen</a>
+      <a href="#leistungen" class="btn-secondary">Leistungen ansehen</a>
     </div>
     <div class="hero-scroll h5">
       <div class="hero-scroll-line"></div>
@@ -362,47 +318,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-  <div class="wrap">
-    <div class="eyebrow reveal">Meine Arbeit</div>
-    <h2 class="sec-title reveal">Projekte die <span>sprechen.</span></h2>
-    <p class="sec-lead reveal">Echte Ergebnisse für echte Unternehmen – und Konzepte die zeigen was möglich ist.</p>
-    <div class="portfolio-grid">
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Website · Fitness</div><div class="portfolio-name">LifeStyle BestFitness</div><div class="portfolio-desc">Kompletter Web-Auftritt</div></div>
-        <a href="https://lifestylefitness.netlify.app" class="portfolio-link" target="_blank">↗</a>
-      </div>
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Website · Hospitality</div><div class="portfolio-name">Steiner Apartments</div><div class="portfolio-desc">Boutique Webauftritt</div></div>
-        <a href="https://steinerapartment.netlify.app" class="portfolio-link" target="_blank">↗</a>
-      </div>
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Website · Tattoo Studio</div><div class="portfolio-name">Pink Blue Tattoo</div><div class="portfolio-desc">Dark Luxury Webauftritt</div></div>
-        <a href="#" class="portfolio-link">↗</a>
-      </div>
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Website · KFZ</div><div class="portfolio-name">KFZ-Technik Fritsch</div><div class="portfolio-desc">Kompletter Web-Auftritt</div></div>
-        <a href="https://kfzfritsch.netlify.app" class="portfolio-link" target="_blank">↗</a>
-      </div>
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Brand Identity · Fashion</div><div class="portfolio-name">MIRA Slow Fashion</div><div class="portfolio-desc">Logo · Content · Recruiting</div></div>
-        <a href="#" class="portfolio-link">↗</a>
-      </div>
-      <div class="portfolio-item reveal">
-        <div class="portfolio-placeholder"><span class="placeholder-icon">＋</span><span class="placeholder-text">Bild folgt</span></div>
-        <div class="portfolio-overlay"><div class="portfolio-tag">Brand Identity · Lifestyle</div><div class="portfolio-name">VEIA</div><div class="portfolio-desc">Vollständiges Brand System</div></div>
-        <a href="#" class="portfolio-link">↗</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- LEISTUNGEN -->
 <section class="leistungen" id="leistungen">
   <div class="wrap">
@@ -416,34 +331,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
       <div class="leistung reveal"><span class="leistung-icon">◎</span><div class="leistung-title">Social Media</div><div class="leistung-text">Strategie, Content und Community Management – damit deine Kanäle wachsen und wirken.</div></div>
       <div class="leistung reveal"><span class="leistung-icon">⟡</span><div class="leistung-title">Print &amp; Druck</div><div class="leistung-text">Flyer, Broschüren, Visitenkarten – professionelle Drucksachen die in Erinnerung bleiben.</div></div>
       <div class="leistung reveal"><span class="leistung-icon">◇</span><div class="leistung-title">KI-Produktgrafiken</div><div class="leistung-text">Hochwertige KI-generierte Produktbilder und visuelle Assets – schnell, günstig, professionell.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="wrap">
-    <div class="eyebrow reveal">Stimmen</div>
-    <h2 class="sec-title reveal">Was Kunden <span>sagen.</span></h2>
-    <div class="testimonials-grid">
-      <div class="testimonial reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">Robin hat für uns ein Mockup gebracht das uns sofort überzeugt hat. Keine langen Gespräche – einfach das Ergebnis gesehen und gesagt: genau das wollen wir.</p>
-        <div class="testimonial-author">Kundin A.</div>
-        <div class="testimonial-role">Gastgewerbe · Steiermark</div>
-      </div>
-      <div class="testimonial reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">Schnell, professionell und immer erreichbar. Unsere neue Website hat genau das Gefühl das wir uns vorgestellt haben – und mehr.</p>
-        <div class="testimonial-author">Kunde B.</div>
-        <div class="testimonial-role">Fitness · Obersteiermark</div>
-      </div>
-      <div class="testimonial reveal">
-        <div class="testimonial-quote">"</div>
-        <p class="testimonial-text">Was mich am meisten beeindruckt hat: Robin denkt mit. Sie bringt Ideen die ich selbst nicht gehabt hätte – und setzt sie um bevor ich zweimal nachfragen muss.</p>
-        <div class="testimonial-author">Kunde C.</div>
-        <div class="testimonial-role">Coming soon</div>
-      </div>
     </div>
   </div>
 </section>
