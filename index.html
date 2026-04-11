@@ -31,15 +31,6 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--white);font-family:'Josefin Sans',sans-serif;font-weight:300;overflow-x:hidden;}
 #stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
-/* COOKIE */
-
-
-
-
-
-
-
-
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 60px;height:100px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,8,8,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
 .nav-logo img{height:120px!important;width:auto!important;max-height:120px!important;object-fit:contain!important;display:block!important;}
@@ -82,7 +73,7 @@ section{position:relative;z-index:1;}
 .hero-inner{max-width:1200px;margin:0 auto;width:100%;}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,9vw,120px);line-height:.93;color:var(--white);text-transform:uppercase;letter-spacing:2px;margin-bottom:36px;}
 .hero-title .gold{color:var(--gold);}
-.hero-sub{font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--white60);margin-bottom:52px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.hero-sub{font-size:15px;letter-spacing:4px;text-transform:uppercase;color:var(--white60);margin-bottom:52px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;pointer-events:none;}
 .hero-sub-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;opacity:.6;}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:48px;}
 .hero-scroll{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:20px;}
@@ -174,7 +165,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .about-grid{grid-template-columns:1fr;gap:40px;}.about-visual{aspect-ratio:3/2;max-height:320px;}
   .leistungen-grid{grid-template-columns:1fr 1fr;}.form-row{grid-template-columns:1fr;}
   footer{padding:32px 24px;flex-direction:column;align-items:flex-start;}
-
 }
 @media(max-width:600px){
   nav{padding:0 20px;height:72px;}.nav-logo img{height:72px!important;max-height:72px!important;}
@@ -190,16 +180,14 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   .kontakt-inner{padding:0 20px;}.kontakt-actions{flex-direction:column;}
   .kontakt-actions .btn-primary,.kontakt-actions .btn-secondary{width:100%;text-align:center;padding:16px 24px;}
   footer{padding:28px 20px;gap:16px;}
-
 }
 @media(max-width:400px){.hero-title{font-size:clamp(38px,11vw,56px);}.sec-title{font-size:clamp(36px,10vw,52px);}.about-stats{grid-template-columns:1fr;}}
 </style>
 <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="39c82957-be7f-4630-9631-97752c367f8a" data-blockingmode="auto" type="text/javascript"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-83H874J8W4" data-cookieconsent="statistics"></script>
 </head>
 <body>
 <canvas id="stars"></canvas>
-
-
 
 <!-- NAV -->
 <nav>
@@ -340,7 +328,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
       <h2 class="kontakt-title reveal">Bereit für deinen<br><span>nächsten Schritt?</span></h2>
       <p class="kontakt-sub reveal">Schreib mir – ich melde mich innerhalb von 24 Stunden.</p>
       <div class="kontakt-actions reveal">
-        <a href="/cdn-cgi/l/email-protection#b7d8d1d1ded4d2f7c5ddc4c3c2d3ded899d6c3" class="btn-primary" aria-label="E-Mail an RJ Studio schreiben">E-Mail schreiben →</a>
+        <a href="mailto:office@rjstudio.at" class="btn-primary" aria-label="E-Mail an RJ Studio schreiben">E-Mail schreiben →</a>
         <a href="https://wa.me/436641980801" class="btn-secondary" target="_blank" rel="noopener" aria-label="RJ Studio auf WhatsApp kontaktieren">WhatsApp →</a>
       </div>
       <div class="kontakt-form reveal">
@@ -357,7 +345,6 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
           </div>
           <div class="form-group"><label for="betreff">Betreff</label><input type="text" id="betreff" name="betreff" placeholder="Worum geht es?" aria-label="Betreff deiner Anfrage"></div>
           <div class="form-group"><label for="nachricht">Nachricht</label><textarea id="nachricht" name="nachricht" placeholder="Erzähl mir von deinem Projekt..." required aria-label="Deine Nachricht"></textarea></div>
-          <input type="hidden" name="form-name" value="kontakt">
           <p style="display:none"><input name="bot-field"></p>
           <div class="form-submit"><button type="submit" id="submitBtn">Nachricht senden →</button></div>
           <p class="form-note">Ich melde mich innerhalb von 24 Stunden bei dir.</p>
@@ -375,7 +362,7 @@ footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;justify
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 const canvas=document.getElementById('stars');
 const ctx=canvas.getContext('2d');
 let W,H,stars=[];
@@ -387,8 +374,7 @@ let scrollY=0,t=0;
 window.addEventListener('scroll',()=>{scrollY=window.scrollY;});
 (function draw(){ctx.clearRect(0,0,W,H);t+=0.016;stars.forEach(s=>{const op=(Math.sin(t*s.speed*60+s.phase)+1)/2*s.max;const py=((s.y-scrollY*s.parallax)%H+H)%H;ctx.beginPath();ctx.arc(s.x,py,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${op})`;ctx.fill();if(op>0.45){ctx.beginPath();ctx.arc(s.x,py,s.r*3,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${op*0.12})`;ctx.fill();}});requestAnimationFrame(draw);})();
 
-/* Cookie-Verwaltung übernimmt Cookiebot */
-/* Google Analytics - Cookiebot übernimmt die Consent-Verwaltung */
+/* Google Analytics – Cookiebot übernimmt Consent-Verwaltung */
 window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
 gtag('js',new Date());
