@@ -179,6 +179,9 @@ nav.scrolled {
 nav.scrolled .nav-logo img {
   height: 56px;
 }
+@media(max-width:1024px) {
+  nav.scrolled .nav-logo img { height: 56px; }
+}
 .nav-logo img {
   height: 90px;
   filter: drop-shadow(0 0 12px rgba(201,168,76,.3));
@@ -1093,33 +1096,101 @@ footer img { height: 28px; opacity: .55; filter: drop-shadow(0 0 4px rgba(201,16
 /* ============================
    RESPONSIVE
    ============================ */
-@media(max-width:1100px) {
-  nav, nav.scrolled { padding-left:40px; padding-right:40px; }
-  .about-text { padding: 80px 48px; }
+/* ============================
+   TABLET + MOBILE (≤ 1024px)
+   Services: vertical stack statt horizontal pin
+   ============================ */
+@media(max-width:1024px) {
+  nav { padding-left:40px; padding-right:40px; }
+  nav.scrolled { padding-left:40px; padding-right:40px; }
+
+  /* Services: aus dem Pin-Modus raus, vertikal stapeln */
+  #services-pin {
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .services-track {
+    flex-direction: column !important;
+    transform: none !important; /* GSAP override verhindern */
+    width: 100% !important;
+  }
+  .s-panel {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 75vh;
+    padding: 100px 48px 80px;
+  }
+  .s-panel-content { max-width: 100%; }
+  .s-art { display: none; }
+  .s-prog { display: none !important; }
+
+  /* Panel-Inhalte sofort sichtbar (kein GSAP-Hide) */
+  .s-panel-label { opacity: 1 !important; transform: none !important; }
+  .s-panel-title { opacity: 1 !important; transform: none !important; }
+  .s-panel-tags  { opacity: 1 !important; }
+  .s-panel-desc  { opacity: 1 !important; transform: none !important; }
+
+  /* About */
+  #about { grid-template-columns: 1fr; }
+  .about-img { min-height: 55vw; max-height: 480px; order: -1; }
+  .about-text { padding: 72px 48px; }
   .about-stats { grid-template-columns: repeat(2,1fr); }
   .astat:nth-child(2) { border-right: none; }
   .astat:nth-child(3) { border-top: 1px solid var(--border); }
   .astat:nth-child(4) { border-top: 1px solid var(--border); }
-  #prozess { padding: 100px 40px; }
+
+  /* Prozess */
+  #prozess { padding: 100px 48px; }
+
+  /* Kontakt */
+  .k-title { font-size: clamp(3.5rem,12vw,8rem) !important; }
 }
+
+/* ============================
+   MOBILE ONLY (≤ 768px)
+   ============================ */
 @media(max-width:768px) {
-  nav { padding: 20px 24px; }
-  nav.scrolled { padding: 14px 24px; }
+  nav { padding: 16px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  nav.scrolled .nav-logo img { height: 48px; }
+  .nav-logo img { height: 64px; }
+
   footer { padding:28px 24px; flex-direction:column; text-align:center; }
+
+  /* Services */
+  .s-panel {
+    min-height: 65vh;
+    padding: 80px 24px 72px;
+  }
+  .s-panel-title { font-size: clamp(2.8rem,10vw,5rem) !important; }
+  .s-panel-bg-num { font-size: 60vw; }
+
+  /* About */
   #about { grid-template-columns: 1fr; }
-  .about-img { min-height: 60vw; max-height: 420px; }
-  .about-text { padding: 60px 24px; }
+  .about-img { min-height: 60vw; max-height: 380px; }
+  .about-text { padding: 56px 24px; }
   .about-stats { grid-template-columns: repeat(2,1fr); }
-  .s-panel { padding: 60px 28px 80px; }
-  .s-panel-content { max-width: 100%; }
-  .s-art { display: none; }
+  .about-impact { font-size: clamp(4rem,16vw,7rem); }
+
+  /* Prozess */
   #prozess { padding: 80px 24px; }
-  .prz-step { padding-bottom: 60px; }
+  .prz-step { padding-bottom: 52px; padding-left: 24px; }
+  .prz-title { font-size: clamp(2.5rem,9vw,4rem); margin-bottom: 52px; }
+
+  /* Kontakt */
   #kontakt { padding: 80px 24px; }
   .scroll-hint { left: 24px; }
+  .k-title { font-size: clamp(3rem,18vw,7rem) !important; }
 }
+
+/* ============================
+   SMALL MOBILE (≤ 480px)
+   ============================ */
 @media(max-width:480px) {
   .hero-btns { flex-direction:column; align-items:center; }
+  .s-panel { min-height: 70vh; padding: 72px 20px 64px; }
+  .about-stats { grid-template-columns: repeat(2,1fr); }
+  .k-links { flex-direction: column; align-items: center; gap:16px; }
 }
 </style>
 </head>
@@ -1675,7 +1746,7 @@ function getTrackMove() {
 
 const mm = gsap.matchMedia();
 
-mm.add('(min-width: 769px)', () => {
+mm.add('(min-width: 1025px)', () => {
   const st = gsap.to(track, {
     x: () => -getTrackMove(),
     ease: 'none',
@@ -1695,25 +1766,21 @@ mm.add('(min-width: 769px)', () => {
         const idx = Math.min(3, Math.floor(p * 4));
         progNum.textContent = `0${idx+1} / 04`;
 
-        // Panel content animations based on position
         panels.forEach((panel, i) => {
           const panelProgress = p * 4 - i;
           const inView = panelProgress > -0.1 && panelProgress < 1.1;
-
           const label = panel.querySelector('.s-panel-label');
           const title = panel.querySelector('.s-panel-title');
-          const tags = panel.querySelector('.s-panel-tags');
-          const desc = panel.querySelector('.s-panel-desc');
-          const art = panel.querySelector('.s-art');
-
+          const tags  = panel.querySelector('.s-panel-tags');
+          const desc  = panel.querySelector('.s-panel-desc');
+          const art   = panel.querySelector('.s-art');
           if(inView && !panel.dataset.animated) {
             panel.dataset.animated = '1';
-            const delay = i === 0 ? 0 : 0;
-            gsap.to(label, { opacity:1, y:0, duration:.6, ease:'power3.out', delay });
-            gsap.to(title, { opacity:1, y:0, duration:.8, ease:'power4.out', delay: delay+.1 });
-            gsap.to(tags,  { opacity:1, duration:.6, ease:'power2.out', delay: delay+.25 });
-            gsap.to(desc,  { opacity:1, y:0, duration:.6, ease:'power2.out', delay: delay+.35 });
-            if(art) gsap.to(art, { opacity:1, duration:.8, ease:'power2.out', delay: delay+.4 });
+            gsap.to(label, { opacity:1, y:0, duration:.6, ease:'power3.out' });
+            gsap.to(title, { opacity:1, y:0, duration:.8, ease:'power4.out', delay:.1 });
+            gsap.to(tags,  { opacity:1, duration:.6, ease:'power2.out', delay:.25 });
+            gsap.to(desc,  { opacity:1, y:0, duration:.6, ease:'power2.out', delay:.35 });
+            if(art) gsap.to(art, { opacity:1, duration:.8, ease:'power2.out', delay:.4 });
           }
         });
       }
@@ -1722,20 +1789,31 @@ mm.add('(min-width: 769px)', () => {
   return () => st.kill();
 });
 
-// Mobile: show services stacked
-mm.add('(max-width: 768px)', () => {
-  document.querySelectorAll('.s-panel-label, .s-panel-title, .s-panel-tags, .s-panel-desc').forEach(el => {
-    gsap.set(el, { opacity:1, y:0 });
-  });
-  ScrollTrigger.create({
-    trigger: '#services-pin',
-    start: 'top 80%',
-    once: true,
-    onEnter: () => {
-      gsap.to('.s-panel-label, .s-panel-title, .s-panel-tags, .s-panel-desc', {
-        opacity:1, y:0, duration:.6, ease:'power2.out', stagger:.05
-      });
-    }
+// Tablet + Mobile (≤ 1024px): vertikaler Stack mit Scroll-Reveal pro Panel
+mm.add('(max-width: 1024px)', () => {
+  // Sicherstellen dass GSAP keine transforms auf dem track lässt
+  gsap.set(track, { x: 0, clearProps: 'x' });
+
+  panels.forEach((panel, i) => {
+    const label = panel.querySelector('.s-panel-label');
+    const title = panel.querySelector('.s-panel-title');
+    const tags  = panel.querySelector('.s-panel-tags');
+    const desc  = panel.querySelector('.s-panel-desc');
+
+    // Startstate für Scroll-Reveal
+    gsap.set([label, title, tags, desc], { opacity:0, y:24 });
+
+    ScrollTrigger.create({
+      trigger: panel,
+      start: 'top 78%',
+      once: true,
+      onEnter: () => {
+        gsap.to(label, { opacity:1, y:0, duration:.5, ease:'power3.out' });
+        gsap.to(title, { opacity:1, y:0, duration:.7, ease:'power4.out', delay:.1 });
+        gsap.to(tags,  { opacity:1, y:0, duration:.5, ease:'power2.out', delay:.22 });
+        gsap.to(desc,  { opacity:1, y:0, duration:.5, ease:'power2.out', delay:.32 });
+      }
+    });
   });
 });
 
