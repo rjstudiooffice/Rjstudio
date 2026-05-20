@@ -11,8 +11,8 @@
 :root{--bg:#080808;--gold:#c9a84c;--white:#f5f0e8;--white60:rgba(245,240,232,0.65);--border:rgba(201,168,76,0.15);}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--white);font-family:'Josefin Sans',sans-serif;font-weight:300;min-height:100vh;}
-nav{padding:0 60px;height:80px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(8,8,8,.95);}
-.nav-logo img{height:80px;width:auto;object-fit:contain;display:block;}
+nav{padding:0 64px;height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(8,8,8,.96);backdrop-filter:blur(20px);}
+.nav-logo img{height:38px;width:auto;object-fit:contain;display:block;filter:drop-shadow(0 0 6px rgba(201,168,76,.2));}
 .back{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--white60);text-decoration:none;transition:color .2s;}
 .back:hover{color:var(--gold);}
 .content{max-width:760px;margin:0 auto;padding:80px 60px;}
@@ -35,7 +35,7 @@ footer a:hover{color:var(--gold);}
 </head>
 <body>
 <nav>
-  <a href="index.html"><img src="rjstudio.png" alt="RJ Studio Logo" style="height:80px;width:auto;display:block;"></a>
+  <a href="index.html" class="nav-logo"><img src="rjstudio.png" alt="RJ Studio"></a>
   <a href="index.html" class="back">← Zurück zur Website</a>
 </nav>
 <div class="content">
