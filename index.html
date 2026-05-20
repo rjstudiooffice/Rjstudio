@@ -1098,37 +1098,36 @@ footer img { height: 28px; opacity: .55; filter: drop-shadow(0 0 4px rgba(201,16
    ============================ */
 /* ============================
    TABLET + MOBILE (≤ 1024px)
-   Services: vertical stack statt horizontal pin
+   Services: vertikale Full-Screen Panels, cinematic entry
    ============================ */
 @media(max-width:1024px) {
   nav { padding-left:40px; padding-right:40px; }
   nav.scrolled { padding-left:40px; padding-right:40px; }
 
-  /* Services: aus dem Pin-Modus raus, vertikal stapeln */
-  #services-pin {
-    height: auto !important;
-    overflow: visible !important;
-  }
-  .services-track {
-    flex-direction: column !important;
-    transform: none !important; /* GSAP override verhindern */
-    width: 100% !important;
-  }
+  /* Services: Pin aufheben, Panels vertikal full-screen */
+  #services-pin { height: auto; overflow: visible; }
+  .services-track { display: block; width: 100%; }
   .s-panel {
-    width: 100% !important;
-    height: auto !important;
-    min-height: 75vh;
-    padding: 100px 48px 80px;
+    width: 100%;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
   }
   .s-panel-content { max-width: 100%; }
   .s-art { display: none; }
   .s-prog { display: none !important; }
 
-  /* Panel-Inhalte sofort sichtbar (kein GSAP-Hide) */
-  .s-panel-label { opacity: 1 !important; transform: none !important; }
-  .s-panel-title { opacity: 1 !important; transform: none !important; }
-  .s-panel-tags  { opacity: 1 !important; }
-  .s-panel-desc  { opacity: 1 !important; transform: none !important; }
+  /* Jede Panel-Zahl: größer und dramatischer positioniert */
+  .s-panel-bg-num {
+    font-size: 42vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(201,168,76,.035);
+  }
 
   /* About */
   #about { grid-template-columns: 1fr; }
@@ -1141,9 +1140,6 @@ footer img { height: 28px; opacity: .55; filter: drop-shadow(0 0 4px rgba(201,16
 
   /* Prozess */
   #prozess { padding: 100px 48px; }
-
-  /* Kontakt */
-  .k-title { font-size: clamp(3.5rem,12vw,8rem) !important; }
 }
 
 /* ============================
@@ -1158,29 +1154,24 @@ footer img { height: 28px; opacity: .55; filter: drop-shadow(0 0 4px rgba(201,16
   footer { padding:28px 24px; flex-direction:column; text-align:center; }
 
   /* Services */
-  .s-panel {
-    min-height: 65vh;
-    padding: 80px 24px 72px;
-  }
-  .s-panel-title { font-size: clamp(2.8rem,10vw,5rem) !important; }
-  .s-panel-bg-num { font-size: 60vw; }
+  .s-panel { height: 100vh; min-height: 500px; padding: 0 24px 72px; }
+  .s-panel-bg-num { font-size: 65vw; }
+  .s-panel-title { font-size: clamp(2.6rem,11vw,5rem) !important; }
 
   /* About */
-  #about { grid-template-columns: 1fr; }
-  .about-img { min-height: 60vw; max-height: 380px; }
-  .about-text { padding: 56px 24px; }
-  .about-stats { grid-template-columns: repeat(2,1fr); }
-  .about-impact { font-size: clamp(4rem,16vw,7rem); }
+  .about-img { min-height: 55vw; max-height: 360px; }
+  .about-text { padding: 52px 24px; }
+  .about-impact { font-size: clamp(4rem,18vw,7rem); }
 
   /* Prozess */
   #prozess { padding: 80px 24px; }
-  .prz-step { padding-bottom: 52px; padding-left: 24px; }
-  .prz-title { font-size: clamp(2.5rem,9vw,4rem); margin-bottom: 52px; }
+  .prz-step { padding-bottom: 52px; padding-left: 20px; }
+  .prz-title { font-size: clamp(2.4rem,9vw,4rem); margin-bottom: 52px; }
 
   /* Kontakt */
   #kontakt { padding: 80px 24px; }
+  .k-title { font-size: clamp(3.5rem,18vw,8rem) !important; }
   .scroll-hint { left: 24px; }
-  .k-title { font-size: clamp(3rem,18vw,7rem) !important; }
 }
 
 /* ============================
@@ -1188,9 +1179,8 @@ footer img { height: 28px; opacity: .55; filter: drop-shadow(0 0 4px rgba(201,16
    ============================ */
 @media(max-width:480px) {
   .hero-btns { flex-direction:column; align-items:center; }
-  .s-panel { min-height: 70vh; padding: 72px 20px 64px; }
-  .about-stats { grid-template-columns: repeat(2,1fr); }
-  .k-links { flex-direction: column; align-items: center; gap:16px; }
+  .s-panel { padding: 0 20px 64px; }
+  .k-links { flex-direction:column; align-items:center; gap:16px; }
 }
 </style>
 </head>
@@ -1598,16 +1588,18 @@ window.addEventListener('resize', () => {
   renderer.setSize(W, H);
 });
 
-// Scroll: pull camera back
-ScrollTrigger.create({
-  trigger: '#hero',
-  start: 'top top',
-  end: 'bottom top',
-  onUpdate: self => {
-    camera.position.z = 80 + self.progress * 40;
-    mat.opacity = Math.max(.2, .85 - self.progress * .8);
-  }
-});
+// Scroll: pull camera back (nur Desktop)
+if(window.innerWidth > 768) {
+  ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    onUpdate: self => {
+      camera.position.z = 80 + self.progress * 40;
+      mat.opacity = Math.max(.2, .85 - self.progress * .8);
+    }
+  });
+}
 
 /* ==============================================
    CUSTOM CURSOR
@@ -1789,31 +1781,73 @@ mm.add('(min-width: 1025px)', () => {
   return () => st.kill();
 });
 
-// Tablet + Mobile (≤ 1024px): vertikaler Stack mit Scroll-Reveal pro Panel
+// Tablet + Mobile (≤ 1024px): cinematische Full-Screen Panel Reveals
 mm.add('(max-width: 1024px)', () => {
-  // Sicherstellen dass GSAP keine transforms auf dem track lässt
-  gsap.set(track, { x: 0, clearProps: 'x' });
+  // GSAP transform auf track zurücksetzen
+  gsap.set(track, { clearProps: 'all' });
 
-  panels.forEach((panel, i) => {
-    const label = panel.querySelector('.s-panel-label');
-    const title = panel.querySelector('.s-panel-title');
-    const tags  = panel.querySelector('.s-panel-tags');
-    const desc  = panel.querySelector('.s-panel-desc');
+  panels.forEach((panel) => {
+    const label  = panel.querySelector('.s-panel-label');
+    const title  = panel.querySelector('.s-panel-title');
+    const tags   = panel.querySelector('.s-panel-tags');
+    const desc   = panel.querySelector('.s-panel-desc');
+    const bgNum  = panel.querySelector('.s-panel-bg-num');
 
-    // Startstate für Scroll-Reveal
-    gsap.set([label, title, tags, desc], { opacity:0, y:24 });
+    // Dramatische Startzustände — alles versteckt
+    gsap.set(bgNum,  { scale: 3, opacity: 0, rotation: 8 });
+    gsap.set(label,  { opacity: 0, y: 30 });
+    gsap.set(title,  { opacity: 0, y: 100, filter: 'blur(24px)', scale: 1.06 });
+    gsap.set(tags,   { opacity: 0, y: 20 });
+    gsap.set(desc,   { opacity: 0, y: 20 });
 
     ScrollTrigger.create({
       trigger: panel,
-      start: 'top 78%',
+      start: 'top 60%',
       once: true,
       onEnter: () => {
-        gsap.to(label, { opacity:1, y:0, duration:.5, ease:'power3.out' });
-        gsap.to(title, { opacity:1, y:0, duration:.7, ease:'power4.out', delay:.1 });
-        gsap.to(tags,  { opacity:1, y:0, duration:.5, ease:'power2.out', delay:.22 });
-        gsap.to(desc,  { opacity:1, y:0, duration:.5, ease:'power2.out', delay:.32 });
+        const tl = gsap.timeline();
+        // Große Zahl zoomt dramatisch rein
+        tl.to(bgNum, {
+          scale: 1, opacity: 0.035, rotation: 0,
+          duration: 1.6, ease: 'power4.out'
+        })
+        // Label
+        .to(label, {
+          opacity: 1, y: 0, duration: .5, ease: 'power3.out'
+        }, .1)
+        // Titel schlägt rein — wie Filmtitel
+        .to(title, {
+          opacity: 1, y: 0, filter: 'blur(0px)', scale: 1,
+          duration: 1, ease: 'power4.out'
+        }, .25)
+        // Gold-Linie (label after-element) ausdehnen über CSS
+        // Tags
+        .to(tags, {
+          opacity: 1, y: 0, duration: .5, ease: 'power2.out'
+        }, .7)
+        // Description
+        .to(desc, {
+          opacity: 1, y: 0, duration: .6, ease: 'power2.out'
+        }, .85);
       }
     });
+
+    // Scroll-Parallax auf die Hintergrundzahl — subtiler Filmkamera-Effekt
+    gsap.to(bgNum, {
+      y: '-15%',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: panel,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+  });
+
+  // About: Darkroom-Reveal auch auf Mobile sichtbar machen
+  gsap.to('#about-overlay', { opacity: 0, ease: 'none',
+    scrollTrigger: { trigger: '#about', start: 'top 70%', end: 'center 20%', scrub: 2 }
   });
 });
 
